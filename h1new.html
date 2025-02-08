@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>任务编辑器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            padding: 20px;
+            color: white;
+        }
+
+        .main-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            padding-left: 10px;
+        }
+
+        /* 菜单样式 */
+        .menu {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin: 10px 0;
+        }
+
+        .menu-title {
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu-title:hover {
+            background: #34495e;
+        }
+
+        .sub-menu {
+            list-style: none;
+            margin-left: 20px;
+            display: none;
+        }
+
+        .menu-item:hover .sub-menu {
+            display: block;
+        }
+
+        .sub-btn {
+            padding: 8px;
+            cursor: pointer;
+            color: #bdc3c7;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-btn:hover {
+            color: white;
+            background: #3498db;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 功能按钮 */
+        .action-btns {
+            display: flex;
+            gap: 30px;
+        }
+
+        .main-btn {
+            padding: 20px 40px;
+            font-size: 18px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1 class="main-title">任务编辑器</h1>
+        <ul class="menu">
+            <li class="menu-item">
+                <div class="menu-title">文件管理</div>
+                <ul class="sub-menu">
+                    <li class="sub-btn"><i class="fas fa-plus"></i></li>
+                    <li class="sub-btn"><i class="fas fa-file-import"></i></li>
+                    <li class="sub-btn"><i class="fas fa-file-export"></i></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <div class="menu-title">任务配置</div>
+                <ul class="sub-menu">
+                    <li class="sub-btn"><i class="fas fa-cog"></i></li>
+                    <li class="sub-btn"><i class="fas fa-project-diagram"></i></li>
+                    <li class="sub-btn"><i class="fas fa-link"></i></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <div class="menu-title">系统工具</div>
+                <ul class="sub-menu">
+                    <li class="sub-btn"><i class="fas fa-clipboard-list"></i></li>
+                    <li class="sub-btn"><i class="fas fa-tachometer-alt"></i></li>
+                    <li class="sub-btn"><i class="fas fa-cogs"></i></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="action-btns">
+            <button class="main-btn">创建任务</button>
+            <button class="main-btn">打开任务</button>
+        </div>
+    </div>
+</body>
+</html>
