@@ -54,10 +54,13 @@
             list-style: none;
             margin-left: 20px;
             display: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .menu-item:hover .sub-menu {
-            display: block;
+            display: flex;
         }
 
         .sub-btn {
@@ -67,7 +70,9 @@
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
         }
 
         .sub-btn:hover {
@@ -107,6 +112,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
     </style>
+    <script src="scripts.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -141,7 +147,7 @@
 
     <div class="main-content">
         <div class="action-btns">
-            <button class="main-btn">创建任务</button>
+            <button class="main-btn" onclick="openNewPage()">创建任务</button>
             <button class="main-btn">打开任务</button>
         </div>
     </div>
