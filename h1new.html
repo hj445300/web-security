@@ -54,12 +54,11 @@
             list-style: none;
             margin-left: 20px;
             display: none;
-            display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .menu-item:hover .sub-menu {
+        .menu-item.active .sub-menu {
             display: flex;
         }
 
@@ -112,7 +111,20 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
     </style>
-    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+
+            menuItems.forEach(function(menuItem) {
+                const menuTitle = menuItem.querySelector('.menu-title');
+
+                menuTitle.addEventListener('click', function() {
+                    menuItem.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+	<script src="scripts.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -121,25 +133,25 @@
             <li class="menu-item">
                 <div class="menu-title">文件管理</div>
                 <ul class="sub-menu">
-                    <li class="sub-btn"><i class="fas fa-plus"></i></li>
-                    <li class="sub-btn"><i class="fas fa-file-import"></i></li>
-                    <li class="sub-btn"><i class="fas fa-file-export"></i></li>
+                    <li class="sub-btn" title="创建文件"><i class="fas fa-plus"></i></li>
+                    <li class="sub-btn" title="导入文件"><i class="fas fa-file-import"></i></li>
+                    <li class="sub-btn" title="导出文件"><i class="fas fa-file-export"></i></li>
                 </ul>
             </li>
             <li class="menu-item">
                 <div class="menu-title">任务配置</div>
                 <ul class="sub-menu">
-                    <li class="sub-btn"><i class="fas fa-cog"></i></li>
-                    <li class="sub-btn"><i class="fas fa-project-diagram"></i></li>
-                    <li class="sub-btn"><i class="fas fa-link"></i></li>
+                    <li class="sub-btn" title="配置任务"><i class="fas fa-cog"></i></li>
+                    <li class="sub-btn" title="任务流程图"><i class="fas fa-project-diagram"></i></li>
+                    <li class="sub-btn" title="任务链接"><i class="fas fa-link"></i></li>
                 </ul>
             </li>
             <li class="menu-item">
                 <div class="menu-title">系统工具</div>
                 <ul class="sub-menu">
-                    <li class="sub-btn"><i class="fas fa-clipboard-list"></i></li>
-                    <li class="sub-btn"><i class="fas fa-tachometer-alt"></i></li>
-                    <li class="sub-btn"><i class="fas fa-cogs"></i></li>
+                    <li class="sub-btn" title="任务列表"><i class="fas fa-clipboard-list"></i></li>
+                    <li class="sub-btn" title="性能监视器"><i class="fas fa-tachometer-alt"></i></li>
+                    <li class="sub-btn" title="系统设置"><i class="fas fa-cogs"></i></li>
                 </ul>
             </li>
         </ul>
