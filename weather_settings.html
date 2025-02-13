@@ -1,0 +1,153 @@
+<style>
+    .weather-settings-container {
+        display: flex; /* Use flexbox to position the panels side-by-side */
+    }
+
+    .weather-settings-panel {
+        background-color: #2c3e50;
+        color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        width: 400px; /* Adjust as needed */
+    }
+
+    .detailed-settings-panel {
+        background-color: #f0f0f0; /* Placeholder style */
+        padding: 15px;
+        border-radius: 5px;
+        margin-right: 15px; /* Add some spacing between the panels */
+        width: 300px; /* Adjust as needed */
+        display: none; /* Initially hide the detailed settings panel */
+    }
+
+    .weather-settings-panel h2,
+    .weather-settings-panel p,
+    .weather-settings-panel label {
+        color: #fff;
+    }
+
+    .weather-settings-panel .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .weather-settings-panel label {
+        width: 100px;
+        text-align: left;
+        margin-right: 10px;
+    }
+
+    .weather-settings-panel select,
+    .weather-settings-panel input[type="number"] {
+        width: 150px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: #fff;
+        color: #000;
+    }
+</style>
+<div class="weather-settings-container">
+    <div class="detailed-settings-panel" id="detailedSettingsPanel">
+        <h2>详细设置</h2>
+        <p>在此处配置详细的天气设置。</p>
+        <!-- Add detailed settings form elements here -->
+    </div>
+
+    <div class="weather-settings-panel">
+        <h2>天气设置</h2>
+        <p>在此处配置任务的天气条件。</p>
+
+        <div class="form-row">
+            <label for="wind_direction">风向 (0-359°):</label>
+            <input type="number" id="wind_direction" name="wind_direction" min="0" max="359" value="0">
+        </div>
+
+        <div class="form-row">
+            <label for="wind_speed">风速:</label>
+            <select id="wind_speed" name="wind_speed">
+                <option value="0">无风（0kts）</option>
+                <option value="8">轻风（8kts）</option>
+                <option value="16">适中（16kts）</option>
+                <option value="24">强风（24kts）</option>
+                <option value="36">风暴（36kts）</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="weather_type">天气类型:</label>
+            <select id="weather_type" name="weather_type">
+                <option value="sunny">晴朗</option>
+                <option value="cloudy">多云</option>
+                <option value="rainy">下雨</option>
+                <option value="snowy">下雪</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="cloud_cover">云量:</label>
+            <select id="cloud_cover" name="cloud_cover">
+                <option value="none">无云</option>
+                <option value="few">少云</option>
+                <option value="scattered">疏云</option>
+                <option value="many">多云</option>
+                <option value="overcast">阴天</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="precipitation">降水:</label>
+            <select id="precipitation" name="precipitation">
+                <option value="none">无</option>
+                <option value="very_low">极低</option>
+                <option value="low">低</option>
+                <option value="medium">中</option>
+                <option value="high">高</option>
+                <option value="very_high">极高</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="visibility">能见度:</label>
+            <select id="visibility" name="visibility">
+                <option value="0.1">0.1Km</option>
+                <option value="0.2">0.2Km</option>
+                <option value="0.4">0.4Km</option>
+                <option value="0.8">0.8Km</option>
+                <option value="1.2">1.2Km</option>
+                <option value="1.6">1.6Km</option>
+                <option value="3.2">3.2Km</option>
+                <option value="4.8">4.8Km</option>
+                <option value="8">8Km</option>
+                <option value="16">16Km</option>
+                <option value="32">32Km</option>
+                <option value="48">48Km</option>
+                <option value="64">64Km</option>
+                <option value="80">80Km</option>
+                <option value="infinite">无限远</option>
+            </select>
+        </div>
+
+        <button id="detailedSettingsButton">详细设置</button>
+        <button>保存</button>
+    </div>
+</div>
+
+<script>
+    const detailedSettingsButton = document.getElementById("detailedSettingsButton");
+    const detailedSettingsPanel = document.getElementById("detailedSettingsPanel");
+
+    detailedSettingsButton.addEventListener("click", function() {
+        console.log("Detailed Settings button clicked!"); // Debugging line
+
+        if (detailedSettingsPanel.style.display === "none") {
+            detailedSettingsPanel.style.display = "block";
+            console.log("Detailed Settings panel set to block"); // Debugging line
+        } else {
+            detailedSettingsPanel.style.display = "none";
+            console.log("Detailed Settings panel set to none"); // Debugging line
+        }
+    });
+</script>

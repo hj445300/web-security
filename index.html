@@ -83,34 +83,20 @@
         .main-content {
             flex: 1;
             padding: 0;
-            background: #ecf0f1;
-            position: relative;
-            overflow: hidden;
-            display: flex; /* Add flex display */
-        }
-
-        .map-container {
-            flex: 1; /* Take up remaining space */
+            background: #ecf0f1; /* Fallback background color if map fails to load */
             position: relative;
             overflow: hidden;
         }
 
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .weather-settings-panel {
-            width: 300px; /* Adjust width as needed */
-            background: #f0f0f0;
-            padding: 20px;
-            border-left: 1px solid #ccc;
-            display: none; /* Hidden by default */
-        }
-
-        .weather-settings-panel h2 {
-            margin-bottom: 10px;
+        /* 功能按钮 */
+        .action-btns {
+            display: flex;
+            gap: 30px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100; /* Increased z-index */
         }
 
         .main-btn {
@@ -128,6 +114,23 @@
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+
+        /* Map Styling */
+        .map-container {
+            position: absolute; /* Make the map container absolute */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Place the map behind the buttons */
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -148,33 +151,9 @@
                     window.location.href = 'create_task.html';
                 });
             }
-
-             // Weather Settings Panel Toggle
-            const weatherSettingsBtn = document.querySelector('.sub-menu li[title="天气设置"]');
-            const mainContent = document.querySelector('.main-content');
-
-            if (weatherSettingsBtn && mainContent) {
-                weatherSettingsBtn.addEventListener('click', function() {
-                    // Fetch the weather settings panel content
-                    fetch('weather_settings.html')
-                        .then(response => response.text())
-                        .then(data => {
-                            // Insert the weather settings panel into the main content
-                            mainContent.insertAdjacentHTML('beforeend', data); // Append the data to the main content
-
-                            // Toggle the display of the weather settings panel
-                            const weatherSettingsPanel = document.querySelector('.weather-settings-panel');
-                            if (weatherSettingsPanel) {
-                                weatherSettingsPanel.style.display = (weatherSettingsPanel.style.display === 'block') ? 'none' : 'block';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching weather_settings.html:', error);
-                        });
-                });
-            }
         });
     </script>
+	<script src="scripts.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -204,16 +183,14 @@
                     <li class="sub-btn" title="系统设置"><i class="fas fa-cogs"></i></li>
                 </ul>
             </li>
-			<li class="menu-item">
-                <div class="menu-title">地图</div>
-                <ul class="sub-menu">
-                    <li class="sub-btn" title="区域选择"><i class="fas fa-clipboard-list"></i></li>                   
-                </ul>
-            </li>
         </ul>
     </div>
 
     <div class="main-content">
+        <div class="action-btns">
+            <button class="main-btn" onclick="window.location.href='create_task.html'">创建任务</button>
+            <button class="main-btn">打开任务</button>
+        </div>
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e5a977%3A0x16575e2240cf1397!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1675886173985!5m2!1sen!2sus"
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
