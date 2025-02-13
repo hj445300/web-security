@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>创建阵营</title>
+    <title>任务编辑器</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -12,457 +12,181 @@
         }
 
         body {
+            display: flex;
+            height: 100vh;
             font-family: "Microsoft YaHei", sans-serif;
-            background: #ecf0f1;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
             padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #34495e;
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .list-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: calc(30% - 20px);
-            margin: 10px;
-        }
-
-        .list-container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            width: 100%;
-            height: 300px;
-            overflow-y: auto;
-        }
-
-        .list-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #2980b9;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        li:last-child {
-            border-bottom: none;
-        }
-
-        li.selected {
-            background-color: #f0f0f0;
-        }
-
-        .blue-army {
-            color: #3498db;
-        }
-
-        .country-info {
-            color: #27ae60;
-        }
-
-        .red-army {
-            color: #e74c3c;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 10px;
-            height: 300px; /* Set a height to occupy the same space as the lists */
-        }
-
-        button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #3498db;
             color: white;
-            cursor: pointer;
-            margin: 5px 0;
-            width: 100px;
         }
 
-        button:hover {
-            background-color: #2980b9;
+        .main-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            padding-left: 10px;
         }
 
-        .flag {
-            width: 20px;
-            height: 15px;
-            margin-right: 5px;
-            display: inline-block;
-            vertical-align: middle;
-            background-size: cover;
-        }
-
-        .flag.country-a {
-            background-image: url('https://flagcdn.com/w20/us.png'); /* Replace with actual flag URL */
-        }
-
-        .flag.country-b {
-            background-image: url('https://flagcdn.com/w20/ca.png'); /* Replace with actual flag URL */
-        }
-
-        .flag.country-c {
-            background-image: url('https://flagcdn.com/w20/gb.png'); /* Replace with actual flag URL */
-        }
-
-        .map-section {
-            margin-top: 20px;
-            width: 100%;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-
-        .map-section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #2980b9;
-            text-align: center;
-        }
-
-        .map-list {
+        /* 菜单样式 */
+        .menu {
             list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
         }
 
-        .map-list li {
+        .menu-item {
+            margin: 10px 0;
+        }
+
+        .menu-title {
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s;
         }
 
-        .map-list li:hover {
-            background: #f0f0f0;
+        .menu-title:hover {
+            background: #34495e;
         }
 
-        .bottom-buttons {
+        .sub-menu {
+            list-style: none;
+            margin-left: 20px;
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .menu-item.active .sub-menu {
             display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
         }
 
-        .bottom-buttons button {
-            margin-left: 10px;
+        .sub-btn {
+            padding: 8px;
+            cursor: pointer;
+            color: #bdc3c7;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .sub-btn:hover {
+            color: white;
+            background: #3498db;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            padding: 0;
+            background: #ecf0f1; /* Fallback background color if map fails to load */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-btn {
+            padding: 20px 40px;
+            font-size: 18px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Map Styling */
+        .map-container {
+            position: absolute; /* Make the map container absolute */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Place the map behind the buttons */
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+
+            menuItems.forEach(function(menuItem) {
+                const menuTitle = menuItem.querySelector('.menu-title');
+
+                menuTitle.addEventListener('click', function() {
+                    menuItem.classList.toggle('active');
+                });
+            });
+
+            // Add click event to the "创建任务" sub-menu button (icon)
+            const createTaskSubBtnIcon = document.querySelector('.sub-menu li[title="创建任务"] i');
+            if (createTaskSubBtnIcon) {
+                createTaskSubBtnIcon.addEventListener('click', function() {
+                    window.location.href = 'create_task.html';
+                });
+            }
+        });
+    </script>
+	<script src="scripts.js"></script>
 </head>
 <body>
-    <h1>创建阵营</h1>
-
-    <div class="container">
-        <div class="list-wrapper">
-            <div class="list-container">
-                <h2 class="list-title">蓝军阵营</h2>
-                <ul id="blueArmyList">
-                    <!-- 蓝军单位将动态添加到这里 -->
+    <div class="sidebar">
+        <h1 class="main-title">任务编辑器</h1>
+        <ul class="menu">
+            <li class="menu-item">
+                <div class="menu-title">任务管理</div>
+                <ul class="sub-menu">
+                    <li class="sub-btn" title="创建任务"><i class="fas fa-plus"></i></li>
+                    <li class="sub-btn" title="导入任务"><i class="fas fa-file-import"></i></li>
+                    <li class="sub-btn" title="导出任务"><i class="fas fa-file-export"></i></li>
                 </ul>
-            </div>
-            <button onclick="clearBlueArmy()">清空阵营</button>
-        </div>
-
-        <div class="button-container">
-            <button onclick="addBlueCountry()">←</button>
-            <button onclick="removeBlueCountry()">→</button>
-        </div>
-
-        <div class="list-wrapper">
-            <div class="list-container">
-                <h2 class="list-title">国家信息列表</h2>
-                <ul id="countryInfoList">
-                    <li class="country-info" onclick="selectCountry(this)"><span class="flag country-a"></span>国家 A - 首都 X</li>
-                    <li class="country-info" onclick="selectCountry(this)"><span class="flag country-b"></span>国家 B - 首都 Y</li>
-                    <li class="country-info" onclick="selectCountry(this)"><span class="flag country-c"></span>国家 C - 首都 Z</li>
+            </li>
+            <li class="menu-item">
+                <div class="menu-title">任务配置</div>
+                <ul class="sub-menu">
+                    <li class="sub-btn" title="天气设置"><i class="fas fa-sun"></i></li>
+                    <li class="sub-btn" title="触发器规则设置"><i class="fas fa-code-branch"></i></li>
+                    <li class="sub-btn" title="操作指挥设置"><i class="fas fa-headset"></i></li>
                 </ul>
-            </div>
-        </div>
-
-        <div class="button-container">
-            <button onclick="addRedCountry()">→</button>
-            <button onclick="removeRedCountry()">←</button>
-        </div>
-
-        <div class="list-wrapper">
-            <div class="list-container">
-                <h2 class="list-title">红军阵营</h2>
-                <ul id="redArmyList">
-                    <!-- 红军单位将动态添加到这里 -->
+            </li>
+            <li class="menu-item">
+                <div class="menu-title">系统工具</div>
+                <ul class="sub-menu">
+                    <li class="sub-btn" title="任务列表"><i class="fas fa-clipboard-list"></i></li>
+                    <li class="sub-btn" title="性能监视器"><i class="fas fa-tachometer-alt"></i></li>
+                    <li class="sub-btn" title="系统设置"><i class="fas fa-cogs"></i></li>
                 </ul>
-            </div>
-            <button onclick="clearRedArmy()">清空阵营</button>
-        </div>
-    </div>
-
-    <div class="map-section">
-        <h2 class="map-section-title">地图选择</h2>
-        <ul class="map-list" id="mapList">
-            <li onclick="selectMapPoint(this)">位置 1</li>
-            <li onclick="selectMapPoint(this)">位置 2</li>
-            <li onclick="selectMapPoint(this)">位置 3</li>
-            <li onclick="selectMapPoint(this)">位置 4</li>
+            </li>
+			<li class="menu-item">
+                <div class="menu-title">地图</div>
+                <ul class="sub-menu">
+                    <li class="sub-btn" title="区域选择"><i class="fas fa-clipboard-list"></i></li>                   
+                </ul>
+            </li>
         </ul>
     </div>
 
-    <div class="bottom-buttons">
-        <button onclick="create()">创建</button>
-        <button onclick="cancel()">取消</button>
+    <div class="main-content">        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e5a977%3A0x16575e2240cf1397!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1675886173985!5m2!1sen!2sus"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </div>
-
-    <script>
-        let selectedCountry = null;
-        let selectedBlueArmy = null;
-        let selectedRedArmy = null;
-        let selectedMapPoint = null;
-
-        const blueArmyList = document.getElementById('blueArmyList');
-        const countryInfoList = document.getElementById('countryInfoList');
-        const redArmyList = document.getElementById('redArmyList');
-        const mapList = document.getElementById('mapList');
-
-        // Store the original list of countries
-        const originalCountries = Array.from(countryInfoList.children).map(function(li) {
-            return {
-                element: li,
-                text: li.textContent,
-                flagClass: li.querySelector('.flag').className // Store the flag class
-            };
-        });
-
-        function selectCountry(element) {
-            if (selectedCountry) {
-                selectedCountry.classList.remove('selected');
-            }
-            selectedCountry = element;
-            selectedCountry.classList.add('selected');
-        }
-
-        function addBlueCountry() {
-            addCountry('blue');
-        }
-
-        function removeBlueCountry() {
-            removeCountry('blue');
-        }
-
-        function addRedCountry() {
-            addCountry('red');
-        }
-
-        function removeRedCountry() {
-            removeCountry('red');
-        }
-
-        function clearBlueArmy() {
-            // Get all the list items from blue army and add them back to the country list
-            const blueArmyLis = Array.from(blueArmyList.children);
-            blueArmyLis.forEach(function(li) {
-                const countryText = li.textContent;
-                 // Determine the flag class based on the country name
-                let flagClass = '';
-                if (countryText.startsWith('国家 A')) {
-                    flagClass = 'flag country-a';
-                } else if (countryText.startsWith('国家 B')) {
-                    flagClass = 'flag country-b';
-                } else if (countryText.startsWith('国家 C')) {
-                    flagClass = 'flag country-c';
-                }
-
-                const originalCountry = document.createElement('li');
-                originalCountry.className = 'country-info';
-                originalCountry.onclick = function() { selectCountry(this); };
-                originalCountry.innerHTML = '<span class="' + flagClass + '"></span>' + countryText; // Add flag to cleared countries
-                countryInfoList.appendChild(originalCountry);
-            });
-
-            blueArmyList.innerHTML = ''; // Clear all child elements
-        }
-
-        function clearRedArmy() {
-            // Get all the list items from red army and add them back to the country list
-            const redArmyLis = Array.from(redArmyList.children);
-             redArmyLis.forEach(function(li) {
-                const countryText = li.textContent;
-                 // Determine the flag class based on the country name
-                let flagClass = '';
-                if (countryText.startsWith('国家 A')) {
-                    flagClass = 'flag country-a';
-                } else if (countryText.startsWith('国家 B')) {
-                    flagClass = 'flag country-b';
-                } else if (countryText.startsWith('国家 C')) {
-                    flagClass = 'flag country-c';
-                }
-
-                const originalCountry = document.createElement('li');
-                originalCountry.className = 'country-info';
-                originalCountry.onclick = function() { selectCountry(this); };
-                originalCountry.innerHTML = '<span class="' + flagClass + '"></span>' + countryText; // Add flag to cleared countries
-                countryInfoList.appendChild(originalCountry);
-            });
-
-            redArmyList.innerHTML = ''; // Clear all child elements
-        }
-
-        function addCountry(army) {
-            if (selectedCountry) {
-                const countryText = selectedCountry.textContent;
-                let flagClass = '';
-
-                if (countryText.startsWith('国家 A')) {
-                    flagClass = 'flag country-a';
-                } else if (countryText.startsWith('国家 B')) {
-                    flagClass = 'flag country-b';
-                } else if (countryText.startsWith('国家 C')) {
-                    flagClass = 'flag country-c';
-                }
-
-                const newLi = document.createElement('li');
-                newLi.innerHTML = '<span class="' + flagClass + '"></span>' + countryText;
-
-
-                if (army === 'blue') {
-                    newLi.className = 'blue-army';
-                    newLi.onclick = function() { selectBlueArmy(this); };
-                    blueArmyList.appendChild(newLi);
-                } else if (army === 'red') {
-                    newLi.className = 'red-army';
-                    newLi.onclick = function() { selectRedArmy(this); };
-                    redArmyList.appendChild(newLi);
-                }
-
-                // Remove the country from the original list
-                selectedCountry.remove();
-                selectedCountry = null;
-
-                //Deselect any selected army units
-                selectedBlueArmy = null;
-                selectedRedArmy = null;
-            } else {
-                alert('请选择要添加的国家');
-            }
-        }
-
-        function removeCountry(army) {
-            let selectedUnit = null;
-            let selectedList = null;
-            let armyClass = '';
-            let flagClass = '';
-            let countryText = '';
-
-            if (army === 'blue') {
-                selectedUnit = selectedBlueArmy;
-                selectedList = blueArmyList;
-                armyClass = 'blue-army';
-            } else if (army === 'red') {
-                selectedUnit = selectedRedArmy;
-                selectedList = redArmyList;
-                armyClass = 'red-army';
-            }
-
-            if (selectedUnit) {
-                countryText = selectedUnit.textContent;
-
-                  if (countryText.startsWith('国家 A')) {
-                    flagClass = 'flag country-a';
-                } else if (countryText.startsWith('国家 B')) {
-                    flagClass = 'flag country-b';
-                } else if (countryText.startsWith('国家 C')) {
-                    flagClass = 'flag country-c';
-                }
-                selectedUnit.remove();
-
-                 // Add the country back to the original list
-                 const originalCountry = document.createElement('li');
-                 originalCountry.className = 'country-info';
-                 originalCountry.onclick = function() { selectCountry(this); };
-                 originalCountry.innerHTML = '<span class="' + flagClass + '"></span>' + countryText;
-                 countryInfoList.appendChild(originalCountry);
-
-                if (army === 'blue') {
-                    selectedBlueArmy = null;
-                } else if (army === 'red') {
-                    selectedRedArmy = null;
-                }
-            } else {
-                alert(\`请选择要删除的\${army === 'blue' ? '蓝军' : '红军'}单位\`);
-            }
-        }
-
-        function selectBlueArmy(element) {
-            if (selectedBlueArmy) {
-                selectedBlueArmy.classList.remove('selected');
-            }
-            selectedBlueArmy = element;
-            selectedBlueArmy.classList.add('selected');
-             if(selectedRedArmy){
-                 selectedRedArmy.classList.remove('selected');
-                 selectedRedArmy = null;
-             }
-        }
-
-        function selectRedArmy(element) {
-            if (selectedRedArmy) {
-                selectedRedArmy.classList.remove('selected');
-            }
-            selectedRedArmy = element;
-            selectedRedArmy.classList.add('selected');
-            if(selectedBlueArmy){
-                 selectedBlueArmy.classList.remove('selected');
-                 selectedBlueArmy = null;
-             }
-        }
-
-        function selectMapPoint(element) {
-            if (selectedMapPoint) {
-                selectedMapPoint.classList.remove('selected');
-            }
-            selectedMapPoint = element;
-            selectedMapPoint.classList.add('selected');
-        }
-
-        function create() {
-            const filePath = "/path/to/save/location";
-            const fileName = "default.xml";
-            alert('文件已保存到: ' + filePath + '/' + fileName);
-        }
-
-        function cancel() {
-            window.close();
-        }
-    </script>
 </body>
 </html>
