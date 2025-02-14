@@ -48,6 +48,24 @@
         background-color: #fff;
         color: #000;
     }
+
+    .save-button {
+        padding: 10px 20px;
+        background-color: grey;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: not-allowed;
+        font-size: 16px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .save-button.active {
+        background-color: #3498db;
+        cursor: pointer;
+    }
 </style>
 <div class="weather-settings-container">
     <div class="detailed-settings-panel" id="detailedSettingsPanel">
@@ -129,6 +147,6 @@
                 <option value="infinite">无限远</option>
             </select>
         </div>
-        <button>保存</button>
+        <button class="save-button" id="saveButton">保存</button>
     </div>
 </div>

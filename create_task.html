@@ -206,6 +206,24 @@
         background-color: #3498db;
         cursor: pointer;
     }
+
+    .save-button {
+        padding: 10px 20px;
+        background-color: grey;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: not-allowed;
+        font-size: 16px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .save-button.active {
+        background-color: #3498db;
+        cursor: pointer;
+    }
   </style>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -241,6 +259,19 @@
         } else {
           console.error("Detailed settings button not found!");
         }
+
+        const saveButton = document.getElementById('saveButton');
+        const formElements = document.querySelectorAll('.weather-settings-panel select, .weather-settings-panel input[type="number"]');
+
+        formElements.forEach(function (element) {
+            element.addEventListener('change', function () {
+                saveButton.classList.remove('active');
+            });
+        });
+
+        saveButton.addEventListener('click', function () {
+            saveButton.classList.add('active');
+        });
       }
 
       // Weather Settings Panel Toggle
