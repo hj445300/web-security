@@ -139,7 +139,7 @@
     /* Map selection panel */
     .map-selection-panel {
       width: 300px;
-      background: #f9f9f9;
+      background: #2c3e50;
       padding: 20px;
       border-left: 1px solid #ccc;
       display: none;
@@ -148,6 +148,7 @@
       right: 0;
       height: 100%;
       overflow-y: auto;
+      color: white;
     }
 
     .map-selection-panel h2 {
@@ -161,6 +162,49 @@
         margin-right: 15px; /* Add some spacing between the panels */
         width: 300px; /* Adjust as needed */
         display: none; /* Initially hide the detailed settings panel */
+    }
+
+    .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .form-row label {
+        margin-right: 10px;
+        flex-shrink: 0;
+    }
+
+    .form-row select,
+    .form-row textarea {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        flex-grow: 1;
+    }
+
+    .form-row textarea {
+        resize: vertical;
+        height: 100px;
+    }
+
+    .confirm-button {
+        padding: 10px 20px;
+        background-color: grey;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: not-allowed;
+        font-size: 16px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .confirm-button.active {
+        background-color: #3498db;
+        cursor: pointer;
     }
   </style>
   <script>
@@ -255,7 +299,28 @@
 
       // Function to initialize the map options panel
       function initializeMapOptionsPanel() {
-        // Add any JavaScript logic for the map options panel here, if needed
+        const regionSelect = document.getElementById('region');
+        const regionDescriptionTextarea = document.getElementById('region_description');
+        const confirmButton = document.getElementById('confirmButton');
+
+        const regionDescriptions = {
+            caucasus: "高加索地区位于欧亚大陆交界处，以其壮丽的山脉和多样的文化而闻名。",
+            persian_gulf: "波斯湾地区是中东地区重要的石油产区，拥有丰富的自然资源。",
+            other: "This is a description for another region."
+            // Add more descriptions for other regions here
+        };
+
+        regionSelect.addEventListener('change', function () {
+            const selectedRegion = regionSelect.value;
+            regionDescriptionTextarea.value = regionDescriptions[selectedRegion] || "暂无该区域的简介。";
+            confirmButton.classList.remove('active');
+        });
+
+        confirmButton.addEventListener('click', function () {
+            if (regionSelect.value) {
+                confirmButton.classList.add('active');
+            }
+        });
       }
 
       // Map Selection Panel Toggle
@@ -282,21 +347,7 @@
                 // Insert the map options panel into the main content
                 mainContent.insertAdjacentHTML('beforeend', data);
                 mapOptionsPanel = document.querySelector('.map-selection-panel');
-                // initializeMapOptionsPanel(); // Initialize any JavaScript for the map options panel
-                const regionSelect = document.getElementById('region');
-                const regionDescriptionTextarea = document.getElementById('region_description');
-
-                const regionDescriptions = {
-                    caucasus: "高加索地区位于欧亚大陆交界处，以其壮丽的山脉和多样的文化而闻名。",
-                    persian_gulf: "波斯湾地区是中东地区重要的石油产区，拥有丰富的自然资源。",
-                    other: "This is a description for another region."
-                    // Add more descriptions for other regions here
-                };
-
-                regionSelect.addEventListener('change', function () {
-                    const selectedRegion = regionSelect.value;
-                    regionDescriptionTextarea.value = regionDescriptions[selectedRegion] || "暂无该区域的简介。";
-                });
+                initializeMapOptionsPanel(); // Initialize any JavaScript for the map options panel
                 mapOptionsPanel.style.display = 'block';
               })
               .catch(error => {
@@ -366,10 +417,9 @@
 
   <div class="main-content">
     <div class="map-container">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e6a949%3A0xb6899234e561db11!2sFlinders%20Street%20Railway%20Station!5e0!3m2!1sen!2sau!4v1644727428788!5m2!1sen!2sau"
-        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e5a977%3A0x16575e2240cf1397!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1675886173985!5m2!1sen!2sus"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 </body>
