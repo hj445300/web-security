@@ -1,243 +1,377 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <title>任务编辑器</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <title>任务编辑器</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            display: flex;
-            height: 100vh;
-            font-family: "Microsoft YaHei", sans-serif;
-        }
+    body {
+      display: flex;
+      height: 100vh;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
 
-        /* Left sidebar */
-        .sidebar {
-            width: 250px;
-            background: #2c3e50;
-            padding: 20px;
-            color: white;
-        }
+    /* Left sidebar */
+    .sidebar {
+      width: 250px;
+      background: #2c3e50;
+      padding: 20px;
+      color: white;
+    }
 
-        .main-title {
-            font-size: 24px;
-            margin-bottom: 30px;
-            padding-left: 10px;
-        }
+    .main-title {
+      font-size: 24px;
+      margin-bottom: 30px;
+      padding-left: 10px;
+    }
 
-        /* Menu */
-        .menu {
-            list-style: none;
-        }
+    /* Menu */
+    .menu {
+      list-style: none;
+    }
 
-        .menu-item {
-            margin: 10px 0;
-        }
+    .menu-item {
+      margin: 10px 0;
+    }
 
-        .menu-title {
-            padding: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+    .menu-title {
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-        .menu-title:hover {
-            background: #34495e;
-        }
+    .menu-title:hover {
+      background: #34495e;
+    }
 
-        .sub-menu {
-            list-style: none;
-            margin-left: 20px;
-            display: none;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    .sub-menu {
+      list-style: none;
+      margin-left: 20px;
+      display: none;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        .menu-item.active .sub-menu {
-            display: flex;
-        }
+    .menu-item.active .sub-menu {
+      display: flex;
+    }
 
-        .sub-btn {
-            padding: 8px;
-            cursor: pointer;
-            color: #bdc3c7;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-        }
+    .sub-btn {
+      padding: 8px;
+      cursor: pointer;
+      color: #bdc3c7;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
 
-        .sub-btn:hover {
-            color: white;
-            background: #3498db;
-        }
+    .sub-btn:hover {
+      color: white;
+      background: #3498db;
+    }
 
-        /* Main content */
-        .main-content {
-            flex: 1;
-            padding: 0;
-            background: #ecf0f1;
-            position: relative;
-            overflow: hidden;
-            display: flex; /* Add flex display */
-        }
+    /* Main content */
+    .main-content {
+      flex: 1;
+      padding: 0;
+      background: #ecf0f1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
 
-        .map-container {
-            flex: 1; /* Take up remaining space */
-            position: relative;
-            overflow: hidden;
-        }
+    .map-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
-        .weather-settings-panel {
-            width: 300px; /* Adjust width as needed */
-            background: #f0f0f0;
-            padding: 20px;
-            border-left: 1px solid #ccc;
-            display: none; /* Hidden by default */
-        }
+    .weather-settings-panel {
+      width: 300px;
+      background: #f0f0f0;
+      padding: 20px;
+      border-left: 1px solid #ccc;
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      overflow-y: auto;
+    }
 
-        .weather-settings-panel h2 {
-            margin-bottom: 10px;
-        }
+    .weather-settings-panel h2 {
+      margin-bottom: 10px;
+    }
 
-        .main-btn {
-            padding: 20px 40px;
-            font-size: 18px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+    .main-btn {
+      padding: 20px 40px;
+      font-size: 18px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
 
-        .main-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuItems = document.querySelectorAll('.menu-item');
+    .main-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
 
-            menuItems.forEach(function(menuItem) {
-                const menuTitle = menuItem.querySelector('.menu-title');
+    /* Map selection panel */
+    .map-selection-panel {
+      width: 300px;
+      background: #f9f9f9;
+      padding: 20px;
+      border-left: 1px solid #ccc;
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      overflow-y: auto;
+    }
 
-                menuTitle.addEventListener('click', function() {
-                    menuItem.classList.toggle('active');
-                });
-            });
+    .map-selection-panel h2 {
+      margin-bottom: 10px;
+    }
 
-            // Add click event to the "Create Task" sub-menu button (icon)
-            const createTaskSubBtnIcon = document.querySelector('.sub-menu li[title="创建任务"] i');
-            if (createTaskSubBtnIcon) {
-                createTaskSubBtnIcon.addEventListener('click', function() {
-                    window.location.href = 'create_task.html';
-                });
-            }
+    .detailed-settings-panel {
+        background-color: #f0f0f0; /* Placeholder style */
+        padding: 15px;
+        border-radius: 5px;
+        margin-right: 15px; /* Add some spacing between the panels */
+        width: 300px; /* Adjust as needed */
+        display: none; /* Initially hide the detailed settings panel */
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuItems = document.querySelectorAll('.menu-item');
 
-            // Function to initialize the weather settings panel
-            function initializeWeatherSettingsPanel() {
-                const detailedSettingsButton = document.getElementById("detailedSettingsButton");
-                const detailedSettingsPanel = document.getElementById("detailedSettingsPanel");
+      menuItems.forEach(function (menuItem) {
+        const menuTitle = menuItem.querySelector('.menu-title');
 
-                if (detailedSettingsButton) {
-                    detailedSettingsButton.addEventListener("click", function() {
-                        console.log("Detailed Settings button clicked!");
-                        detailedSettingsPanel.classList.toggle('visible');
-                        console.log("Detailed Settings panel classList:", detailedSettingsPanel.classList);
-                    });
-                } else {
-                    console.error("Detailed settings button not found!");
-                }
-            }
-
-            // Weather Settings Panel Toggle
-            const weatherSettingsBtn = document.querySelector('.sub-menu li[title="天气设置"]');
-            const mainContent = document.querySelector('.main-content');
-
-            if (weatherSettingsBtn && mainContent) {
-                weatherSettingsBtn.addEventListener('click', function() {
-                    // Fetch the weather settings panel content
-                    fetch('weather_settings.html')
-                        .then(response => response.text())
-                        .then(data => {
-                            // Insert the weather settings panel into the main content
-                            mainContent.insertAdjacentHTML('beforeend', data);
-
-                            // **IMPORTANT: Initialize the weather settings panel JavaScript after inserting the HTML**
-                            initializeWeatherSettingsPanel();
-
-                            // Toggle the display of the weather settings panel
-                            const weatherSettingsPanel = document.querySelector('.weather-settings-panel');
-                            if (weatherSettingsPanel) {
-                                weatherSettingsPanel.style.display = (weatherSettingsPanel.style.display === 'block') ? 'none' : 'block';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching weather_settings.html:', error);
-                        });
-                });
-            }
+        menuTitle.addEventListener('click', function () {
+          menuItem.classList.toggle('active');
         });
-    </script>
-</head>
-<body>
-    <div class="sidebar">
-        <h1 class="main-title">任务编辑器</h1>
-        <ul class="menu">
-            <li class="menu-item">
-                <div class="menu-title">任务管理</div>
-                <ul class="sub-menu">
-                    <li class="sub-btn" title="创建任务"><i class="fas fa-plus"></i></li>
-                    <li class="sub-btn" title="导入任务"><i class="fas fa-file-import"></i></li>
-                    <li class="sub-btn" title="导出任务"><i class="fas fa-file-export"></i></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <div class="menu-title">任务配置</div>
-                <ul class="sub-menu">
-                    <li class="sub-btn" title="天气设置"><i class="fas fa-sun"></i></li>
-                    <li class="sub-btn" title="触发器规则设置"><i class="fas fa-code-branch"></i></li>
-                    <li class="sub-btn" title="操作指挥设置"><i class="fas fa-headset"></i></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <div class="menu-title">系统工具</div>
-                <ul class="sub-menu">
-                    <li class="sub-btn" title="任务列表"><i class="fas fa-clipboard-list"></i></li>
-                    <li class="sub-btn" title="性能监视器"><i class="fas fa-tachometer-alt"></i></li>
-                    <li class="sub-btn" title="系统设置"><i class="fas fa-cogs"></i></li>
-                </ul>
-            </li>
-            <li class="menu-item">
-                <div class="menu-title">地图</div>
-                <ul class="sub-menu">
-                    <li class="sub-btn" title="区域选择"><i class="fas fa-clipboard-list"></i></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+      });
 
-    <div class="main-content">
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e6a949%3A0xb6899234e561db11!2sFlinders%20Street%20Railway%20Station!5e0!3m2!1sen!2sau!4v1644727428788!5m2!1sen!2sau"
-				width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-				referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+      // Add click event to the "Create Task" sub-menu button (icon)
+      const createTaskSubBtnIcon = document.querySelector('.sub-menu li[title="创建任务"] i');
+      if (createTaskSubBtnIcon) {
+        createTaskSubBtnIcon.addEventListener('click', function () {
+          window.location.href = 'create_task.html';
+        });
+      }
+
+      // Function to initialize the weather settings panel
+      function initializeWeatherSettingsPanel() {
+        const detailedSettingsButton = document.getElementById("detailedSettingsButton");
+        const detailedSettingsPanel = document.getElementById("detailedSettingsPanel");
+
+        if (detailedSettingsButton) {
+          detailedSettingsButton.addEventListener("click", function () {
+            console.log("Detailed Settings button clicked!");
+            detailedSettingsPanel.classList.toggle('visible');
+            console.log("Detailed Settings panel classList:", detailedSettingsPanel.classList);
+          });
+        } else {
+          console.error("Detailed settings button not found!");
+        }
+      }
+
+      // Weather Settings Panel Toggle
+      const weatherSettingsBtn = document.querySelector('.sub-menu li[title="天气设置"]');
+      const mainContent = document.querySelector('.main-content');
+
+      //Function to hide all panels
+      function hideAllPanels() {
+          const weatherSettingsPanel = document.querySelector('.weather-settings-panel');
+          const mapOptionsPanel = document.querySelector('.map-selection-panel');
+
+          if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') {
+              weatherSettingsPanel.style.display = 'none';
+          }
+
+          if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
+              mapOptionsPanel.style.display = 'none';
+          }
+      }
+
+      if (weatherSettingsBtn && mainContent) {
+        weatherSettingsBtn.addEventListener('click', function () {
+          let weatherSettingsPanel = document.querySelector('.weather-settings-panel'); // Get the panel
+
+          if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') {
+              // If the weather settings panel is already visible, hide it and return
+              weatherSettingsPanel.style.display = 'none';
+              return;
+          }
+
+          // If any other panel is visible, hide it
+          hideAllPanels();
+
+          if (!weatherSettingsPanel) {
+            // Panel doesn't exist, so fetch and create it
+            fetch('weather_settings.html')
+              .then(response => response.text())
+              .then(data => {
+                // Insert the weather settings panel into the main content
+                mainContent.insertAdjacentHTML('beforeend', data);
+                weatherSettingsPanel = document.querySelector('.weather-settings-panel');
+
+                initializeWeatherSettingsPanel(); // Initialize any JavaScript for the weather settings panel
+                weatherSettingsPanel.style.display = 'block'; // Show the panel
+              })
+              .catch(error => {
+                console.error('Error fetching weather_settings.html:', error);
+              });
+          }
+          else {
+            // Panel exists, so show it
+            weatherSettingsPanel.style.display = 'block';
+          }
+        });
+      }
+
+      // Function to initialize the map options panel
+      function initializeMapOptionsPanel() {
+        // Add any JavaScript logic for the map options panel here, if needed
+      }
+
+      // Map Selection Panel Toggle
+      const mapOptionsBtn = document.querySelector('.sub-menu li[title="地图选项"]');
+      const mapContainer = document.querySelector('.map-container');
+
+      if (mapOptionsBtn && mainContent && mapContainer) {
+        mapOptionsBtn.addEventListener('click', function () {
+          let mapOptionsPanel = document.querySelector('.map-selection-panel');
+
+           if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
+              // If the map options panel is already visible, hide it and return
+              mapOptionsPanel.style.display = 'none';
+              return;
+          }
+
+          // If any other panel is visible, hide it
+          hideAllPanels();
+
+          if (!mapOptionsPanel) {
+            fetch('map_options.html')
+              .then(response => response.text())
+              .then(data => {
+                // Insert the map options panel into the main content
+                mainContent.insertAdjacentHTML('beforeend', data);
+                mapOptionsPanel = document.querySelector('.map-selection-panel');
+                // initializeMapOptionsPanel(); // Initialize any JavaScript for the map options panel
+                const regionSelect = document.getElementById('region');
+                const regionDescriptionTextarea = document.getElementById('region_description');
+
+                const regionDescriptions = {
+                    caucasus: "高加索地区位于欧亚大陆交界处，以其壮丽的山脉和多样的文化而闻名。",
+                    persian_gulf: "波斯湾地区是中东地区重要的石油产区，拥有丰富的自然资源。",
+                    other: "This is a description for another region."
+                    // Add more descriptions for other regions here
+                };
+
+                regionSelect.addEventListener('change', function () {
+                    const selectedRegion = regionSelect.value;
+                    regionDescriptionTextarea.value = regionDescriptions[selectedRegion] || "暂无该区域的简介。";
+                });
+                mapOptionsPanel.style.display = 'block';
+              })
+              .catch(error => {
+                console.error('Error fetching map_options.html:', error);
+              });
+          }
+          else {
+            mapOptionsPanel.style.display = 'block';
+          }
+        });
+
+        //Remove the click listener from the map container
+        mapContainer.removeEventListener('click', function () {
+          if (document.querySelector('.map-selection-panel') && document.querySelector('.map-selection-panel').style.display === 'block') {
+            document.querySelector('.map-selection-panel').style.display = 'none';
+          }
+
+          //Hide weather settings panel when clicking on the map container
+          let weatherSettingsPanel = document.querySelector('.weather-settings-panel');
+          // if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') { // Remove this if statement
+          //   weatherSettingsPanel.style.display = 'none';
+          //   currentPanel = null;
+          // }
+        });
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h1 class="main-title">任务编辑器</h1>
+    <ul class="menu">
+      <li class="menu-item">
+        <div class="menu-title">任务管理</div>
+        <ul class="sub-menu">
+          <li class="sub-btn" title="创建任务"><i class="fas fa-plus"></i></li>
+          <li class="sub-btn" title="导入任务"><i class="fas fa-file-import"></i></li>
+          <li class="sub-btn" title="导出任务"><i class="fas fa-file-export"></i></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <div class="menu-title">任务配置</div>
+        <ul class="sub-menu">
+          <li class="sub-btn" title="天气设置"><i class="fas fa-sun"></i></li>
+          <li class="sub-btn" title="地图选项"><i class="fas fa-map-marked-alt"></i></li>
+          <li class="sub-btn" title="触发器规则设置"><i class="fas fa-code-branch"></i></li>
+          <li class="sub-btn" title="操作指挥设置"><i class="fas fa-headset"></i></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <div class="menu-title">实体设置</div>
+        <ul class="sub-menu">
+          <li class="sub-btn" title="任务列表"><i class="fas fa-clipboard-list"></i></li>
+          <li class="sub-btn" title="性能监视器"><i class="fas fa-tachometer-alt"></i></li>
+          <li class="sub-btn" title="系统设置"><i class="fas fa-cogs"></i></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <div class="menu-title">地图</div>
+        <ul class="sub-menu">
+          <li class="sub-btn" title="区域选择"><i class="fas fa-clipboard-list"></i></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e6a949%3A0xb6899234e561db11!2sFlinders%20Street%20Railway%20Station!5e0!3m2!1sen!2sau!4v1644727428788!5m2!1sen!2sau"
+        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
+  </div>
 </body>
+
 </html>
