@@ -20,6 +20,11 @@
         display: none; /* Initially hide the detailed settings panel */
     }
 
+    /* Add a class to control visibility */
+    .detailed-settings-panel.visible {
+        display: block;
+    }
+
     .weather-settings-panel h2,
     .weather-settings-panel p,
     .weather-settings-panel label {
@@ -130,24 +135,7 @@
             </select>
         </div>
 
-        <button id="detailedSettingsButton">详细设置</button>
+        <!-- <button id="detailedSettingsButton">详细设置</button> -->
         <button>保存</button>
     </div>
 </div>
-
-<script>
-    const detailedSettingsButton = document.getElementById("detailedSettingsButton");
-    const detailedSettingsPanel = document.getElementById("detailedSettingsPanel");
-
-    detailedSettingsButton.addEventListener("click", function() {
-        console.log("Detailed Settings button clicked!"); // Debugging line
-
-        if (detailedSettingsPanel.style.display === "none") {
-            detailedSettingsPanel.style.display = "block";
-            console.log("Detailed Settings panel set to block"); // Debugging line
-        } else {
-            detailedSettingsPanel.style.display = "none";
-            console.log("Detailed Settings panel set to none"); // Debugging line
-        }
-    });
-</script>

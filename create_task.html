@@ -17,7 +17,7 @@
             font-family: "Microsoft YaHei", sans-serif;
         }
 
-        /* 左侧导航栏 */
+        /* Left sidebar */
         .sidebar {
             width: 250px;
             background: #2c3e50;
@@ -31,7 +31,7 @@
             padding-left: 10px;
         }
 
-        /* 菜单样式 */
+        /* Menu */
         .menu {
             list-style: none;
         }
@@ -79,7 +79,7 @@
             background: #3498db;
         }
 
-        /* 主内容区 */
+        /* Main content */
         .main-content {
             flex: 1;
             padding: 0;
@@ -141,7 +141,7 @@
                 });
             });
 
-            // Add click event to the "创建任务" sub-menu button (icon)
+            // Add click event to the "Create Task" sub-menu button (icon)
             const createTaskSubBtnIcon = document.querySelector('.sub-menu li[title="创建任务"] i');
             if (createTaskSubBtnIcon) {
                 createTaskSubBtnIcon.addEventListener('click', function() {
@@ -149,7 +149,23 @@
                 });
             }
 
-             // Weather Settings Panel Toggle
+            // Function to initialize the weather settings panel
+            function initializeWeatherSettingsPanel() {
+                const detailedSettingsButton = document.getElementById("detailedSettingsButton");
+                const detailedSettingsPanel = document.getElementById("detailedSettingsPanel");
+
+                if (detailedSettingsButton) {
+                    detailedSettingsButton.addEventListener("click", function() {
+                        console.log("Detailed Settings button clicked!");
+                        detailedSettingsPanel.classList.toggle('visible');
+                        console.log("Detailed Settings panel classList:", detailedSettingsPanel.classList);
+                    });
+                } else {
+                    console.error("Detailed settings button not found!");
+                }
+            }
+
+            // Weather Settings Panel Toggle
             const weatherSettingsBtn = document.querySelector('.sub-menu li[title="天气设置"]');
             const mainContent = document.querySelector('.main-content');
 
@@ -160,7 +176,10 @@
                         .then(response => response.text())
                         .then(data => {
                             // Insert the weather settings panel into the main content
-                            mainContent.insertAdjacentHTML('beforeend', data); // Append the data to the main content
+                            mainContent.insertAdjacentHTML('beforeend', data);
+
+                            // **IMPORTANT: Initialize the weather settings panel JavaScript after inserting the HTML**
+                            initializeWeatherSettingsPanel();
 
                             // Toggle the display of the weather settings panel
                             const weatherSettingsPanel = document.querySelector('.weather-settings-panel');
@@ -204,10 +223,10 @@
                     <li class="sub-btn" title="系统设置"><i class="fas fa-cogs"></i></li>
                 </ul>
             </li>
-			<li class="menu-item">
+            <li class="menu-item">
                 <div class="menu-title">地图</div>
                 <ul class="sub-menu">
-                    <li class="sub-btn" title="区域选择"><i class="fas fa-clipboard-list"></i></li>                   
+                    <li class="sub-btn" title="区域选择"><i class="fas fa-clipboard-list"></i></li>
                 </ul>
             </li>
         </ul>
@@ -215,9 +234,9 @@
 
     <div class="main-content">
         <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e5a977%3A0x16575e2240cf1397!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1675886173985!5m2!1sen!2sus"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e6a949%3A0xb6899234e561db11!2sFlinders%20Street%20Railway%20Station!5e0!3m2!1sen!2sau!4v1644727428788!5m2!1sen!2sau"
+				width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+				referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </body>
