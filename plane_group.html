@@ -1,8 +1,8 @@
 <div class="plane-group-panel">
   <h2>飞机群组</h2>
   <style>
-	.plane-group-panel {
-      width: 400px; /* 增加面板宽度 */
+    .plane-group-panel {
+      width: 400px;
       background: #2c3e50;
       padding: 20px;
       border-left: 1px solid #ccc;
@@ -12,20 +12,20 @@
       right: 0;
       height: 100%;
       overflow-y: auto;
-      color: white;     
+      color: white;
     }
-	
+
     .form-row {
       display: flex;
-      align-items: flex-start; /* 将对齐方式改为flex-start */
+      align-items: flex-start;
       margin-bottom: 10px;
     }
 
     .form-row label {
       margin-right: 10px;
       flex-shrink: 0;
-      text-align: left; /* 确保标签文本左对齐 */
-      width: 120px; /* 设置标签的固定宽度，可以根据需要调整 */
+      text-align: left;
+      width: 120px;
     }
 
     .form-row input,
@@ -36,7 +36,7 @@
       border-radius: 4px;
       box-sizing: border-box;
       flex-grow: 1;
-      text-align: left; /* 确保输入框内的文本左对齐 */
+      text-align: left;
     }
   </style>
   <div class="form-row">
@@ -58,7 +58,24 @@
   </div>
   <div class="form-row">
     <label for="missionType">任务类型:</label>
-    <input type="text" id="missionType" placeholder="输入任务类型">
+    <select id="missionType">
+      <option value="">无</option>
+      <option value="reconnaissance">侦查</option>
+      <option value="air_superiority">制空战斗</option>
+      <option value="refueling">加油</option>
+      <option value="anti_ship">反舰</option>
+      <option value="anti_runway">反跑道</option>
+      <option value="ground_attack">对地攻击</option>
+      <option value="escort">护航</option>
+      <option value="intercept">拦截</option>
+      <option value="combat_air_patrol">空中战斗巡逻</option>
+      <option value="airborne_early_warning">空中预警机</option>
+      <option value="airborne_forward_air_control">空基前进空中指挥</option>
+      <option value="precision_strike">精确打击</option>
+      <option value="transport">运输</option>
+      <option value="close_air_support">近距离空中支援</option>
+      <option value="suppression_of_enemy_air_defenses">防空压制</option>
+    </select>
   </div>
   <div class="form-row">
     <label for="quantity">数量:</label>
@@ -66,7 +83,8 @@
   </div>
   <div class="form-row">
     <label for="planeType">飞机类型:</label>
-    <input type="text" id="planeType" placeholder="输入飞机类型">
+    <select id="planeType">
+    </select>
   </div>
   <div class="form-row">
     <label for="pilotSkill">飞行员技术:</label>

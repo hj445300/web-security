@@ -156,94 +156,77 @@
     }
 
     .detailed-settings-panel {
-        background-color: #f0f0f0;
-        padding: 15px;
-        border-radius: 5px;
-        margin-right: 15px;
-        width: 300px;
-        display: none;
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
+      margin-right: 15px;
+      width: 300px;
+      display: none;
     }
 
     .form-row {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
     .form-row label {
-        margin-right: 10px;
-        flex-shrink: 0;
+      margin-right: 10px;
+      flex-shrink: 0;
     }
 
     .form-row select,
     .form-row textarea,
     .form-row input {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      flex-grow: 1;
     }
 
     .form-row textarea {
-        resize: vertical;
-        height: 100px;
+      resize: vertical;
+      height: 100px;
     }
 
     .confirm-button {
-        padding: 10px 20px;
-        background-color: grey;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: not-allowed;
-        font-size: 16px;
-        display: block;
-        width: 100%;
-        text-align: center;
+      padding: 10px 20px;
+      background-color: grey;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: not-allowed;
+      font-size: 16px;
+      display: block;
+      width: 100%;
+      text-align: center;
     }
 
     .confirm-button.active {
-        background-color: #3498db;
-        cursor: pointer;
+      background-color: #3498db;
+      cursor: pointer;
     }
 
     .save-button {
-        padding: 10px 20px;
-        background-color: grey;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: not-allowed;
-        font-size: 16px;
-        display: block;
-        width: 100%;
-        text-align: center;
+      padding: 10px 20px;
+      background-color: grey;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: not-allowed;
+      font-size: 16px;
+      display: block;
+      width: 100%;
+      text-align: center;
     }
 
     .save-button.active {
-        background-color: #3498db;
-        cursor: pointer;
-    }
-    
-    /* Plane group panel */
-    .plane-group-panel {
-      width: 300px;
-      background: #2c3e50;
-      padding: 20px;
-      border-left: 1px solid #ccc;
-      display: none;
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      overflow-y: auto;
-      color: white;
+      background-color: #3498db;
+      cursor: pointer;
     }
 
-    .plane-group-panel h2 {
-      margin-bottom: 10px;
-    }
+    /* Plane group panel */
 
     .tab-container {
       margin-top: 20px;
@@ -316,13 +299,13 @@
         const formElements = document.querySelectorAll('.weather-settings-panel select, .weather-settings-panel input[type="number"]');
 
         formElements.forEach(function (element) {
-            element.addEventListener('change', function () {
-                saveButton.classList.remove('active');
-            });
+          element.addEventListener('change', function () {
+            saveButton.classList.remove('active');
+          });
         });
 
         saveButton.addEventListener('click', function () {
-            saveButton.classList.add('active');
+          saveButton.classList.add('active');
         });
       }
 
@@ -332,21 +315,21 @@
 
       //Function to hide all panels
       function hideAllPanels() {
-          const weatherSettingsPanel = document.querySelector('.weather-settings-panel');
-          const mapOptionsPanel = document.querySelector('.map-selection-panel');
-          const planeGroupPanel = document.querySelector('.plane-group-panel');
+        const weatherSettingsPanel = document.querySelector('.weather-settings-panel');
+        const mapOptionsPanel = document.querySelector('.map-selection-panel');
+        const planeGroupPanel = document.querySelector('.plane-group-panel');
 
-          if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') {
-              weatherSettingsPanel.style.display = 'none';
-          }
+        if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') {
+          weatherSettingsPanel.style.display = 'none';
+        }
 
-          if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
-              mapOptionsPanel.style.display = 'none';
-          }
-          
-          if (planeGroupPanel && planeGroupPanel.style.display === 'block') {
-              planeGroupPanel.style.display = 'none';
-          }
+        if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
+          mapOptionsPanel.style.display = 'none';
+        }
+
+        if (planeGroupPanel && planeGroupPanel.style.display === 'block') {
+          planeGroupPanel.style.display = 'none';
+        }
       }
 
       if (weatherSettingsBtn && mainContent) {
@@ -354,9 +337,9 @@
           let weatherSettingsPanel = document.querySelector('.weather-settings-panel'); // Get the panel
 
           if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') {
-              // If the weather settings panel is already visible, hide it and return
-              weatherSettingsPanel.style.display = 'none';
-              return;
+            // If the weather settings panel is already visible, hide it and return
+            weatherSettingsPanel.style.display = 'none';
+            return;
           }
 
           // If any other panel is visible, hide it
@@ -392,21 +375,21 @@
         const confirmButton = document.getElementById('confirmButton');
 
         const regionDescriptions = {
-            caucasus: "高加索地区位于欧亚大陆交界处，以其壮丽的山脉和多样的文化而闻名。",
-            persian_gulf: "波斯湾地区是中东地区重要的石油产区，拥有丰富的自然资源。",
-            other: "This is a description for another region."
+          caucasus: "高加索地区位于欧亚大陆交界处，以其壮丽的山脉和多样的文化而闻名。",
+          persian_gulf: "波斯湾地区是中东地区重要的石油产区，拥有丰富的自然资源。",
+          other: "This is a description for another region."
         };
 
         regionSelect.addEventListener('change', function () {
-            const selectedRegion = regionSelect.value;
-            regionDescriptionTextarea.value = regionDescriptions[selectedRegion] || "暂无该区域的简介。";
-            confirmButton.classList.remove('active');
+          const selectedRegion = regionSelect.value;
+          regionDescriptionTextarea.value = regionDescriptions[selectedRegion] || "暂无该区域的简介。";
+          confirmButton.classList.remove('active');
         });
 
         confirmButton.addEventListener('click', function () {
-            if (regionSelect.value) {
-                confirmButton.classList.add('active');
-            }
+          if (regionSelect.value) {
+            confirmButton.classList.add('active');
+          }
         });
       }
 
@@ -419,9 +402,9 @@
           let mapOptionsPanel = document.querySelector('.map-selection-panel');
 
           if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
-              // If the map options panel is already visible, hide it and return
-              mapOptionsPanel.style.display = 'none';
-              return;
+            // If the map options panel is already visible, hide it and return
+            mapOptionsPanel.style.display = 'none';
+            return;
           }
 
           // If any other panel is visible, hide it
@@ -456,100 +439,158 @@
 
       // Function to initialize the plane group panel
       function attachPlaneGroupPanel(planeGroupPanel) {
-          const addPlaneButton = planeGroupPanel.querySelector('#addPlaneButton');
-          const planeList = planeGroupPanel.querySelector('#planeList');
-          const tabs = planeGroupPanel.querySelectorAll('.tab');
-          const tabContents = planeGroupPanel.querySelectorAll('.tab-content');
+        const addPlaneButton = planeGroupPanel.querySelector('#addPlaneButton');
+        const planeList = planeGroupPanel.querySelector('#planeList');
+        const tabs = planeGroupPanel.querySelectorAll('.tab');
+        const tabContents = planeGroupPanel.querySelectorAll('.tab-content');
 
-          tabs.forEach(tab => {
-              tab.addEventListener('click', function () {
-                  const target = this.getAttribute('data-tab');
+        tabs.forEach(tab => {
+          tab.addEventListener('click', function () {
+            const target = this.getAttribute('data-tab');
 
-                  tabs.forEach(t => t.classList.remove('active'));
-                  tabContents.forEach(tc => tc.classList.remove('active'));
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(tc => tc.classList.remove('active'));
 
-                  this.classList.add('active');
-                  planeGroupPanel.querySelector('#' + target).classList.add('active');
-              });
+            this.classList.add('active');
+            planeGroupPanel.querySelector('#' + target).classList.add('active');
           });
+        });
 
-          addPlaneButton.addEventListener('click', function () {
-              const planeNameInput = planeGroupPanel.querySelector('#planeName');
-              const planeName = planeNameInput.value.trim();
+        addPlaneButton.addEventListener('click', function () {
+          const planeNameInput = planeGroupPanel.querySelector('#groupName');
+          const planeName = planeNameInput.value.trim();
 
-              if (planeName) {
-                  const listItem = document.createElement('li');
-                  listItem.textContent = planeName;
-                  planeList.appendChild(listItem);
-                  planeNameInput.value = '';
-              }
-          });
+          if (planeName) {
+            const listItem = document.createElement('li');
+            listItem.textContent = planeName;
+            planeList.appendChild(listItem);
+            planeNameInput.value = '';
+          }
+        });
 
-          const addWaypointButton = planeGroupPanel.querySelector('#addWaypointButton');
-          const waypointList = planeGroupPanel.querySelector('#waypointList');
+        const addWaypointButton = planeGroupPanel.querySelector('#addWaypointButton');
+        const waypointList = planeGroupPanel.querySelector('#waypointList');
 
-          addWaypointButton.addEventListener('click', function () {
-              const waypointNameInput = planeGroupPanel.querySelector('#waypointName');
-              const waypointName = waypointNameInput.value.trim();
+        addWaypointButton.addEventListener('click', function () {
+          const waypointNameInput = planeGroupPanel.querySelector('#waypointName');
+          const waypointName = waypointNameInput.value.trim();
 
-              if (waypointName) {
-                  const listItem = document.createElement('li');
-                  listItem.textContent = waypointName;
-                  waypointList.appendChild(listItem);
-                  waypointNameInput.value = '';
-              }
-          });
+          if (waypointName) {
+            const listItem = document.createElement('li');
+            listItem.textContent = waypointName;
+            waypointList.appendChild(listItem);
+            waypointNameInput.value = '';
+          }
+        });
 
-          const addLoadoutButton = planeGroupPanel.querySelector('#addLoadoutButton');
-          const loadoutList = planeGroupPanel.querySelector('#loadoutList');
+        const addLoadoutButton = planeGroupPanel.querySelector('#addLoadoutButton');
+        const loadoutList = planeGroupPanel.querySelector('#loadoutList');
 
-          addLoadoutButton.addEventListener('click', function () {
-              const loadoutNameInput = planeGroupPanel.querySelector('#loadoutName');
-              const loadoutName = loadoutNameInput.value.trim();
+        addLoadoutButton.addEventListener('click', function () {
+          const loadoutNameInput = planeGroupPanel.querySelector('#loadoutName');
+          const loadoutName = loadoutNameInput.value.trim();
 
-              if (loadoutName) {
-                  const listItem = document.createElement('li');
-                  listItem.textContent = loadoutName;
-                  loadoutList.appendChild(listItem);
-                  loadoutNameInput.value = '';
-              }
-          });
+          if (loadoutName) {
+            const listItem = document.createElement('li');
+            listItem.textContent = loadoutName;
+            loadoutList.appendChild(listItem);
+            loadoutNameInput.value = '';
+          }
+        });
+      }
+
+      function updatePlaneTypes(planeGroupPanel) {
+        const factionSelect = planeGroupPanel.querySelector('#faction');
+        const planeTypeSelect = planeGroupPanel.querySelector('#planeType');
+        const selectedFaction = factionSelect.value;
+
+        // Clear existing options
+        planeTypeSelect.innerHTML = '';
+
+        let planeTypes = [];
+        if (selectedFaction === 'red') {
+          planeTypes = [
+            "J-10C",
+            "J-11A",
+            "J-16",
+            "JH-7A",
+            "H-6J",
+            "KJ-2000",
+            "Y-8G",
+            "Y-8X",
+            "Z-10",
+            "WZ-10",
+            "WZ-19"
+          ];
+        } else if (selectedFaction === 'blue') {
+          planeTypes = [
+            "F-14A",
+            "F-15C",
+            "F-16C",
+            "F/A-18C",
+            "AV-8B",
+            "A-10A",
+            "EA-18G",
+            "E-3A",
+            "KC-135",
+            "S-3B",
+            "SH-60B",
+            "AH-64D",
+            "UH-1H",
+            "UH-60L",
+            "Mi-24P",
+            "Mi-8MT",
+            "Ka-50",
+            "A-50",
+            "Su-25",
+            "Su-33"
+          ];
+        }
+
+        // Add new options
+        for (let i = 0; i < planeTypes.length; i++) {
+          const option = document.createElement('option');
+          option.value = planeTypes[i];
+          option.textContent = planeTypes[i];
+          planeTypeSelect.appendChild(option);
+        }
       }
 
       // Plane Group Panel Toggle
       const planeBtn = document.querySelector('.sub-menu li[title="飞机"]');
 
       if (planeBtn && mainContent) {
-          planeBtn.addEventListener('click', function () {
-              let planeGroupPanel = document.querySelector('.plane-group-panel');
+        planeBtn.addEventListener('click', function () {
+          let planeGroupPanel = document.querySelector('.plane-group-panel');
 
-              if (planeGroupPanel && planeGroupPanel.style.display === 'block') {
-                  // If the plane group panel is already visible, hide it and return
-                  planeGroupPanel.style.display = 'none';
-                  return;
-              }
+          if (planeGroupPanel && planeGroupPanel.style.display === 'block') {
+            // If the plane group panel is already visible, hide it and return
+            planeGroupPanel.style.display = 'none';
+            return;
+          }
 
-              // If any other panel is visible, hide it
-              hideAllPanels();
+          // If any other panel is visible, hideAllPanels();
 
-              if (!planeGroupPanel) {
-                  fetch('plane_group.html')
-                      .then(response => response.text())
-                      .then(data => {
-                          // Insert the plane group panel into the main content
-                          mainContent.insertAdjacentHTML('beforeend', data);
-                          planeGroupPanel = document.querySelector('.plane-group-panel');
-                          attachPlaneGroupPanel(planeGroupPanel); // Call the function to attach event listeners
-                          planeGroupPanel.style.display = 'block';
-                      })
-                      .catch(error => {
-                          console.error('Error fetching plane_group.html:', error);
-                      });
-              }
-              else {
-                  planeGroupPanel.style.display = 'block';
-              }
-          });
+          if (!planeGroupPanel) {
+            fetch('plane_group.html')
+              .then(response => response.text())
+              .then(data => {
+                // Insert the plane group panel into the main content
+                mainContent.insertAdjacentHTML('beforeend', data);
+                planeGroupPanel = document.querySelector('.plane-group-panel');
+                attachPlaneGroupPanel(planeGroupPanel); // Call the function to attach event listeners
+                updatePlaneTypes(planeGroupPanel);
+                planeGroupPanel.querySelector('#faction').addEventListener('change', () => updatePlaneTypes(planeGroupPanel)); // Attach event listener to faction
+                planeGroupPanel.style.display = 'block';
+              })
+              .catch(error => {
+                console.error('Error fetching plane_group.html:', error);
+              });
+          }
+          else {
+            planeGroupPanel.style.display = 'block';
+          }
+        });
       }
     });
   </script>
@@ -596,7 +637,8 @@
 
   <div class="main-content">
     <div class="map-container">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e5a977%3A0x16575e2240cf1397!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1675886173985!5m2!1sen!2sus"
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e5a977%3A0x16575e2240cf1397!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1675886173985!5m2!1sen!2sus"
         width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
