@@ -477,7 +477,66 @@
 		const radioFrequencyInput = document.getElementById('radioFrequency');
 		radioFrequencyInput.disabled = true;
 		//
+		
+		//处理添加 编辑 删除按钮
+		const waypointNameInput = document.getElementById('waypointName');
+		const waypointLatInput = document.getElementById('waypointLat');
+		const waypointLonInput = document.getElementById('waypointLon');
+		const waypointAltInput = document.getElementById('waypointAlt');
 
+		const addWaypointButton = document.getElementById('addWaypointButton');
+		const editWaypointButton = document.getElementById('editWaypointButton');
+		const deleteWaypointButton = document.getElementById('deleteWaypointButton');
+		const waypointList = document.getElementById('waypointList');
+
+		function clearWaypointFields() {
+		  waypointNameInput.value = '';
+		  waypointLatInput.value = '';
+		  waypointLonInput.value = '';
+		  waypointAltInput.value = '';
+		}
+
+		function disableWaypointFields() {
+		  waypointNameInput.disabled = true;
+		  waypointLatInput.disabled = true;
+		  waypointLonInput.disabled = true;
+		}
+
+		function enableWaypointFields() {
+		  waypointNameInput.disabled = false;
+		  waypointLatInput.disabled = false;
+		  waypointLonInput.disabled = false;
+		  waypointAltInput.disabled = false;
+		}
+
+		addWaypointButton.addEventListener('click', function () {
+		  clearWaypointFields();
+		  disableWaypointFields();
+		  waypointAltInput.disabled = false;
+
+		  const waypointName = waypointNameInput.value.trim();
+		  const waypointLat = waypointLatInput.value.trim();
+		  const waypointLon = waypointLonInput.value.trim();
+		  const waypointAlt = waypointAltInput.value.trim();
+
+		  if (waypointName && waypointLat && waypointLon && waypointAlt) {
+			const listItem = document.createElement('li');
+			listItem.textContent = `${waypointName} (${waypointLat}, ${waypointLon}, ${waypointAlt})`;
+			waypointList.appendChild(listItem);
+		  }
+		});
+
+		editWaypointButton.addEventListener('click', function () {
+		  enableWaypointFields();
+		  //TODO: Add logic to select a waypoint from the map and populate the fields
+		});
+
+		deleteWaypointButton.addEventListener('click', function () {
+		  //TODO: Add logic to delete the selected waypoint from the list and clear the fields
+		  clearWaypointFields();
+		});
+	
+		//其他处理
         addPlaneButton.addEventListener('click', function () {
           const planeNameInput = planeGroupPanel.querySelector('#groupName');
           const planeName = planeNameInput.value.trim();
@@ -490,6 +549,7 @@
           }
         });
 
+		/*
         const addWaypointButton = planeGroupPanel.querySelector('#addWaypointButton');
         const waypointList = planeGroupPanel.querySelector('#waypointList');
 
@@ -504,7 +564,8 @@
             waypointNameInput.value = '';
           }
         });
-
+		*/
+		
         const addLoadoutButton = planeGroupPanel.querySelector('#addLoadoutButton');
         const loadoutList = planeGroupPanel.querySelector('#loadoutList');
 

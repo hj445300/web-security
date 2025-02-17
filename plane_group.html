@@ -71,7 +71,7 @@
   </div>
   <div class="form-row">
     <label for="quantity">数量:</label>
-    <input type="number" id="quantity" placeholder="输入数量">
+    <input type="number" id="quantity" placeholder="输入数量" value="1">
   </div>
   <div class="form-row">
     <label for="planeType">飞机类型:</label>
@@ -134,7 +134,11 @@
         <label for="waypointAlt">高度:</label>
         <input type="text" id="waypointAlt" placeholder="输入高度">
       </div>
-      <button id="addWaypointButton" class="main-btn">添加航路点</button>
+      <div class="waypoint-controls">
+        <button id="addWaypointButton" class="main-btn">添加</button>
+        <button id="editWaypointButton" class="main-btn">编辑</button>
+        <button id="deleteWaypointButton" class="main-btn">删除</button>
+      </div>
       <ul id="waypointList"></ul>
     </div>
     <div class="tab-content" id="loadouts">
