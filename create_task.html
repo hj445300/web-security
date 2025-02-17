@@ -156,12 +156,12 @@
     }
 
     .detailed-settings-panel {
-        background-color: #f0f0f0; /* Placeholder style */
+        background-color: #f0f0f0;
         padding: 15px;
         border-radius: 5px;
-        margin-right: 15px; /* Add some spacing between the panels */
-        width: 300px; /* Adjust as needed */
-        display: none; /* Initially hide the detailed settings panel */
+        margin-right: 15px;
+        width: 300px;
+        display: none;
     }
 
     .form-row {
@@ -176,7 +176,8 @@
     }
 
     .form-row select,
-    .form-row textarea {
+    .form-row textarea,
+    .form-row input {
         padding: 8px;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -223,6 +224,57 @@
     .save-button.active {
         background-color: #3498db;
         cursor: pointer;
+    }
+    
+    /* Plane group panel */
+    .plane-group-panel {
+      width: 300px;
+      background: #2c3e50;
+      padding: 20px;
+      border-left: 1px solid #ccc;
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      overflow-y: auto;
+      color: white;
+    }
+
+    .plane-group-panel h2 {
+      margin-bottom: 10px;
+    }
+
+    .tab-container {
+      margin-top: 20px;
+    }
+
+    .tabs {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .tab {
+      margin-right: 20px;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .tab:hover,
+    .tab.active {
+      background: #34495e;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
     }
   </style>
   <script>
@@ -282,6 +334,7 @@
       function hideAllPanels() {
           const weatherSettingsPanel = document.querySelector('.weather-settings-panel');
           const mapOptionsPanel = document.querySelector('.map-selection-panel');
+          const planeGroupPanel = document.querySelector('.plane-group-panel');
 
           if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') {
               weatherSettingsPanel.style.display = 'none';
@@ -289,6 +342,10 @@
 
           if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
               mapOptionsPanel.style.display = 'none';
+          }
+          
+          if (planeGroupPanel && planeGroupPanel.style.display === 'block') {
+              planeGroupPanel.style.display = 'none';
           }
       }
 
@@ -338,7 +395,6 @@
             caucasus: "高加索地区位于欧亚大陆交界处，以其壮丽的山脉和多样的文化而闻名。",
             persian_gulf: "波斯湾地区是中东地区重要的石油产区，拥有丰富的自然资源。",
             other: "This is a description for another region."
-            // Add more descriptions for other regions here
         };
 
         regionSelect.addEventListener('change', function () {
@@ -362,7 +418,7 @@
         mapOptionsBtn.addEventListener('click', function () {
           let mapOptionsPanel = document.querySelector('.map-selection-panel');
 
-           if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
+          if (mapOptionsPanel && mapOptionsPanel.style.display === 'block') {
               // If the map options panel is already visible, hide it and return
               mapOptionsPanel.style.display = 'none';
               return;
@@ -390,19 +446,110 @@
           }
         });
 
-        //Remove the click listener from the map container
+        // Remove the click listener from the map container
         mapContainer.removeEventListener('click', function () {
           if (document.querySelector('.map-selection-panel') && document.querySelector('.map-selection-panel').style.display === 'block') {
             document.querySelector('.map-selection-panel').style.display = 'none';
           }
-
-          //Hide weather settings panel when clicking on the map container
-          let weatherSettingsPanel = document.querySelector('.weather-settings-panel');
-          // if (weatherSettingsPanel && weatherSettingsPanel.style.display === 'block') { // Remove this if statement
-          //   weatherSettingsPanel.style.display = 'none';
-          //   currentPanel = null;
-          // }
         });
+      }
+
+      // Function to initialize the plane group panel
+      function attachPlaneGroupPanel(planeGroupPanel) {
+          const addPlaneButton = planeGroupPanel.querySelector('#addPlaneButton');
+          const planeList = planeGroupPanel.querySelector('#planeList');
+          const tabs = planeGroupPanel.querySelectorAll('.tab');
+          const tabContents = planeGroupPanel.querySelectorAll('.tab-content');
+
+          tabs.forEach(tab => {
+              tab.addEventListener('click', function () {
+                  const target = this.getAttribute('data-tab');
+
+                  tabs.forEach(t => t.classList.remove('active'));
+                  tabContents.forEach(tc => tc.classList.remove('active'));
+
+                  this.classList.add('active');
+                  planeGroupPanel.querySelector('#' + target).classList.add('active');
+              });
+          });
+
+          addPlaneButton.addEventListener('click', function () {
+              const planeNameInput = planeGroupPanel.querySelector('#planeName');
+              const planeName = planeNameInput.value.trim();
+
+              if (planeName) {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = planeName;
+                  planeList.appendChild(listItem);
+                  planeNameInput.value = '';
+              }
+          });
+
+          const addWaypointButton = planeGroupPanel.querySelector('#addWaypointButton');
+          const waypointList = planeGroupPanel.querySelector('#waypointList');
+
+          addWaypointButton.addEventListener('click', function () {
+              const waypointNameInput = planeGroupPanel.querySelector('#waypointName');
+              const waypointName = waypointNameInput.value.trim();
+
+              if (waypointName) {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = waypointName;
+                  waypointList.appendChild(listItem);
+                  waypointNameInput.value = '';
+              }
+          });
+
+          const addLoadoutButton = planeGroupPanel.querySelector('#addLoadoutButton');
+          const loadoutList = planeGroupPanel.querySelector('#loadoutList');
+
+          addLoadoutButton.addEventListener('click', function () {
+              const loadoutNameInput = planeGroupPanel.querySelector('#loadoutName');
+              const loadoutName = loadoutNameInput.value.trim();
+
+              if (loadoutName) {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = loadoutName;
+                  loadoutList.appendChild(listItem);
+                  loadoutNameInput.value = '';
+              }
+          });
+      }
+
+      // Plane Group Panel Toggle
+      const planeBtn = document.querySelector('.sub-menu li[title="飞机"]');
+
+      if (planeBtn && mainContent) {
+          planeBtn.addEventListener('click', function () {
+              let planeGroupPanel = document.querySelector('.plane-group-panel');
+
+              if (planeGroupPanel && planeGroupPanel.style.display === 'block') {
+                  // If the plane group panel is already visible, hide it and return
+                  planeGroupPanel.style.display = 'none';
+                  return;
+              }
+
+              // If any other panel is visible, hide it
+              hideAllPanels();
+
+              if (!planeGroupPanel) {
+                  fetch('plane_group.html')
+                      .then(response => response.text())
+                      .then(data => {
+                          // Insert the plane group panel into the main content
+                          mainContent.insertAdjacentHTML('beforeend', data);
+                          planeGroupPanel = document.querySelector('.plane-group-panel');
+                          attachPlaneGroupPanel(planeGroupPanel); // Call the function to attach event listeners
+                          planeGroupPanel.style.display = 'block';
+                      })
+                      .catch(error => {
+                          console.error('Error fetching plane_group.html:', error);
+                      });
+              }
+              else {
+                  planeGroupPanel.style.display = 'block';
+              }
+          });
       }
     });
   </script>
@@ -450,8 +597,8 @@
   <div class="main-content">
     <div class="map-container">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.777483449398!2d144.9572267739467!3d-37.81721427177917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b834e5a977%3A0x16575e2240cf1397!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1675886173985!5m2!1sen!2sus"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
 </body>

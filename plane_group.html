@@ -1,0 +1,139 @@
+<div class="plane-group-panel">
+  <h2>飞机群组</h2>
+  <style>
+	.plane-group-panel {
+      width: 400px; /* 增加面板宽度 */
+      background: #2c3e50;
+      padding: 20px;
+      border-left: 1px solid #ccc;
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      overflow-y: auto;
+      color: white;     
+    }
+	
+    .form-row {
+      display: flex;
+      align-items: flex-start; /* 将对齐方式改为flex-start */
+      margin-bottom: 10px;
+    }
+
+    .form-row label {
+      margin-right: 10px;
+      flex-shrink: 0;
+      text-align: left; /* 确保标签文本左对齐 */
+      width: 120px; /* 设置标签的固定宽度，可以根据需要调整 */
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      flex-grow: 1;
+      text-align: left; /* 确保输入框内的文本左对齐 */
+    }
+  </style>
+  <div class="form-row">
+    <label for="groupName">群组名称:</label>
+    <input type="text" id="groupName" placeholder="输入群组名称">
+  </div>
+  <div class="form-row">
+    <label for="planeHealth">飞机健康状态:</label>
+    <input type="range" id="planeHealth" min="0" max="100" value="100"
+      oninput="document.getElementById('planeHealthValue').innerText = this.value + '%'">
+    <span id="planeHealthValue">100%</span>
+  </div>
+  <div class="form-row">
+    <label for="faction">阵营:</label>
+    <select id="faction">
+      <option value="red">红方</option>
+      <option value="blue">蓝方</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="missionType">任务类型:</label>
+    <input type="text" id="missionType" placeholder="输入任务类型">
+  </div>
+  <div class="form-row">
+    <label for="quantity">数量:</label>
+    <input type="number" id="quantity" placeholder="输入数量">
+  </div>
+  <div class="form-row">
+    <label for="planeType">飞机类型:</label>
+    <input type="text" id="planeType" placeholder="输入飞机类型">
+  </div>
+  <div class="form-row">
+    <label for="pilotSkill">飞行员技术:</label>
+    <input type="text" id="pilotSkill" placeholder="输入飞行员技术">
+  </div>
+  <div class="form-row">
+    <label for="pilotInfo">飞行员信息:</label>
+    <input type="text" id="pilotInfo" placeholder="输入飞行员信息">
+  </div>
+  <div class="form-row">
+    <label for="planeNumber">机身编号:</label>
+    <input type="text" id="planeNumber" placeholder="输入机身编号">
+  </div>
+  <div class="form-row">
+    <label for="radioEnabled">是否启用无线电:</label>
+    <select id="radioEnabled">
+      <option value="yes">是</option>
+      <option value="no">否</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="radioFrequency">无线电频率:</label>
+    <input type="text" id="radioFrequency" placeholder="输入无线电频率">
+  </div>
+  <button id="addPlaneButton" class="main-btn">添加飞机</button>
+  <ul id="planeList"></ul>
+
+  <div class="tab-container">
+    <ul class="tabs">
+      <li class="tab active" data-tab="waypoints">航路点设置</li>
+      <li class="tab" data-tab="loadouts">挂载设置</li>
+    </ul>
+    <div class="tab-content active" id="waypoints">
+      <h3>航路点设置</h3>
+      <!-- Add your waypoint settings form here -->
+      <div class="form-row">
+        <label for="waypointName">航路点名称:</label>
+        <input type="text" id="waypointName" placeholder="输入航路点名称">
+      </div>
+      <div class="form-row">
+        <label for="waypointLat">纬度:</label>
+        <input type="text" id="waypointLat" placeholder="输入纬度">
+      </div>
+      <div class="form-row">
+        <label for="waypointLon">经度:</label>
+        <input type="text" id="waypointLon" placeholder="输入经度">
+      </div>
+      <div class="form-row">
+        <label for="waypointAlt">高度:</label>
+        <input type="text" id="waypointAlt" placeholder="输入高度">
+      </div>
+      <button id="addWaypointButton" class="main-btn">添加航路点</button>
+      <ul id="waypointList"></ul>
+    </div>
+    <div class="tab-content" id="loadouts">
+      <h3>挂载设置</h3>
+      <!-- Add your loadout settings form here -->
+      <div class="form-row">
+        <label for="loadoutName">挂载名称:</label>
+        <input type="text" id="loadoutName" placeholder="输入挂载名称">
+      </div>
+      <div class="form-row">
+        <label for="loadoutType">挂载类型:</label>
+        <input type="text" id="loadoutType" placeholder="输入挂载类型">
+      </div>
+      <button id="addLoadoutButton" class="main-btn">添加挂载</button>
+      <ul id="loadoutList"></ul>
+    </div>
+  </div>
+</div>
