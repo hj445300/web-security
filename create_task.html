@@ -283,7 +283,8 @@
         menuTitle.addEventListener('click', function () {
           menuItem.classList.toggle('active');
         });
-      });
+      });  
+	  
 
       // Add click event to the "Create Task" sub-menu button (icon)
       const createTaskSubBtnIcon = document.querySelector('.sub-menu li[title="创建任务"] i');
@@ -452,6 +453,7 @@
 
       // Function to initialize the plane group panel
       function attachPlaneGroupPanel(planeGroupPanel) {
+	  
         const addPlaneButton = planeGroupPanel.querySelector('#addPlaneButton');
         const planeList = planeGroupPanel.querySelector('#planeList');
         const tabs = planeGroupPanel.querySelectorAll('.tab');
@@ -468,6 +470,13 @@
             planeGroupPanel.querySelector('#' + target).classList.add('active');
           });
         });
+		
+		//
+		//处理是否隐藏无线电频率输入框
+		const radioEnabledSelect = document.getElementById('radioEnabled');
+		const radioFrequencyInput = document.getElementById('radioFrequency');
+		radioFrequencyInput.disabled = true;
+		//
 
         addPlaneButton.addEventListener('click', function () {
           const planeNameInput = planeGroupPanel.querySelector('#groupName');
@@ -569,6 +578,21 @@
         }
       }
 
+	  // 添加使能函数 检测是否OK
+      function enableDisableRadioFrequency(planeGroupPanel) {
+        const radioEnabledSelect = planeGroupPanel.querySelector('#radioEnabled');
+        const radioFrequencyInput = planeGroupPanel.querySelector('#radioFrequency');
+
+        if (radioEnabledSelect && radioFrequencyInput) {
+          radioEnabledSelect.addEventListener('change', function () {
+            const isEnabled = radioEnabledSelect.value === 'yes';
+            radioFrequencyInput.disabled = !isEnabled;
+          });
+          // Initialize the state on load
+          radioFrequencyInput.disabled = radioEnabledSelect.value !== 'yes';
+        }
+      }
+	  
       // Plane Group Panel Toggle
       const planeBtn = document.querySelector('.sub-menu li[title="飞机"]');
 
@@ -594,6 +618,7 @@
                 planeGroupPanel = document.querySelector('.plane-group-panel');
                 attachPlaneGroupPanel(planeGroupPanel); // Call the function to attach event listeners
                 updatePlaneTypes(planeGroupPanel);
+				enableDisableRadioFrequency(planeGroupPanel);
                 planeGroupPanel.querySelector('#faction').addEventListener('change', () => updatePlaneTypes(planeGroupPanel)); // Attach event listener to faction
                 planeGroupPanel.style.display = 'block';
               })

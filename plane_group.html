@@ -6,6 +6,12 @@
       align-items: flex-start;
       margin-bottom: 10px;
     }
+	
+    .form-row input:disabled {
+      background-color: #ddd;
+      cursor: not-allowed;
+      color: #999;
+    }	
 
     .form-row label {
       margin-right: 10px;
@@ -74,7 +80,13 @@
   </div>
   <div class="form-row">
     <label for="pilotSkill">飞行员技术:</label>
-    <input type="text" id="pilotSkill" placeholder="输入飞行员技术">
+    <select id="pilotSkill">
+      <option value="average">平均</option>
+      <option value="high">高级</option>
+      <option value="excellent">优秀</option>
+      <option value="random">随机</option>
+      <option value="client">客户端</option>
+    </select>
   </div>
   <div class="form-row">
     <label for="pilotInfo">飞行员信息:</label>
@@ -93,7 +105,7 @@
   </div>
   <div class="form-row">
     <label for="radioFrequency">无线电频率:</label>
-    <input type="text" id="radioFrequency" placeholder="输入无线电频率">
+    <input type="text" id="radioFrequency" placeholder="输入无线电频率" disabled>
   </div>
   <button id="addPlaneButton" class="main-btn">添加飞机</button>
   <ul id="planeList"></ul>
