@@ -227,7 +227,20 @@
     }
 
     /* Plane group panel */
-
+	.plane-group-panel {
+      width: 400px;
+      background: #2c3e50;
+      padding: 20px;
+      border-left: 1px solid #ccc;
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      overflow-y: auto;
+      color: white;
+    }
+	
     .tab-container {
       margin-top: 20px;
     }
@@ -570,6 +583,7 @@
           }
 
           // If any other panel is visible, hideAllPanels();
+          hideAllPanels();
 
           if (!planeGroupPanel) {
             fetch('plane_group.html')
