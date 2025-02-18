@@ -1,28 +1,28 @@
-<div class="plane-group-panel">
-  <h2>飞机群组</h2>
+<div class="helicopter-group-panel">
+  <h2>直升机群组</h2>
   <style>
-    .form-row {
+    .form-row-h {
       display: flex;
       align-items: flex-start;
       margin-bottom: 10px;
     }
 	
-    .form-row input:disabled {
+    .form-row-h input:disabled {
       background-color: #ddd;
       cursor: not-allowed;
       color: #999;
     }	
 
-    .form-row label {
+    .form-row-h label {
       margin-right: 10px;
       flex-shrink: 0;
       text-align: left;
       width: 120px;
     }
 
-    .form-row input,
-    .form-row select,
-    .form-row textarea {
+    .form-row-h input,
+    .form-row-h select,
+    .form-row-h textarea {
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -31,54 +31,46 @@
       text-align: left;
     }
   </style>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="groupName">群组名称:</label>
     <input type="text" id="groupName" placeholder="输入群组名称">
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="planeHealth">飞机健康状态:</label>
     <input type="range" id="planeHealth" min="0" max="100" value="100"
       oninput="document.getElementById('planeHealthValue').innerText = this.value + '%'">
     <span id="planeHealthValue">100%</span>
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="faction">阵营:</label>
     <select id="faction">
       <option value="red">红方</option>
       <option value="blue">蓝方</option>
     </select>
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="missionType">任务类型:</label>
     <select id="missionType">
       <option value="">无</option>
       <option value="reconnaissance">侦查</option>
-      <option value="air_superiority">制空战斗</option>
-      <option value="refueling">加油</option>
-      <option value="anti_ship">反舰</option>
-      <option value="anti_runway">反跑道</option>
-      <option value="ground_attack">对地攻击</option>
-      <option value="escort">护航</option>
-      <option value="intercept">拦截</option>
-      <option value="combat_air_patrol">空中战斗巡逻</option>
-      <option value="airborne_early_warning">空中预警机</option>
-      <option value="airborne_forward_air_control">空基前进空中指挥</option>
-      <option value="precision_strike">精确打击</option>
-      <option value="transport">运输</option>
-      <option value="close_air_support">近距离空中支援</option>
-      <option value="suppression_of_enemy_air_defenses">防空压制</option>
+	  <option value="anti_ship">反舰</option>
+	  <option value="ground_attack">对地攻击</option>
+	  <option value="escort">护航</option>
+	  <option value="airborne_forward_air_control">空基前进空中指挥</option>
+	  <option value="transport">运输</option>
+      <option value="close_air_support">近距离空中支援</option>      
     </select>
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="quantity">数量:</label>
     <input type="number" id="quantity" placeholder="输入数量" value="1">
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="planeType">飞机类型:</label>
     <select id="planeType">
     </select>
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="pilotSkill">飞行员技术:</label>
     <select id="pilotSkill">
       <option value="average">平均</option>
@@ -88,24 +80,24 @@
       <option value="client">客户端</option>
     </select>
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="pilotInfo">飞行员信息:</label>
     <input type="text" id="pilotInfo" placeholder="输入飞行员信息">
   </div>
-  <div class="form-row">
+  <div class="form-row-h">
     <label for="planeNumber">机身编号:</label>
     <input type="text" id="planeNumber" placeholder="输入机身编号">
   </div>
-  <div class="form-row">
-    <label for="radioEnabled">是否启用无线电:</label>
-    <select id="radioEnabled">
+  <div class="form-row-h">
+    <label for="radioEn">是否启用无线电:</label>
+    <select id="radioEn">
       <option value="yes">是</option>
       <option value="no">否</option>
     </select>
   </div>
-  <div class="form-row">
-    <label for="radioFrequency">无线电频率:</label>
-    <input type="text" id="radioFrequency" placeholder="输入无线电频率" disabled>
+  <div class="form-row-h">
+    <label for="radioFreq">无线电频率:</label>
+    <input type="text" id="radioFreq" placeholder="输入无线电频率" disabled>
   </div>
   <button id="addPlaneButton" class="main-btn">添加飞机</button>
   <ul id="planeList"></ul>
@@ -118,37 +110,37 @@
     <div class="tab-content active" id="waypoints">
       <h3>航路点</h3>
       <!-- Add your waypoint settings form here -->
-      <div class="form-row">
-        <label for="waypointName">航路点名称:</label>
-        <input type="text" id="waypointName" placeholder="输入航路点名称">
+      <div class="form-row-h">
+        <label for="wpName">航路点名称:</label>
+        <input type="text" id="wpName" placeholder="输入航路点名称">
       </div>
-      <div class="form-row">
-        <label for="waypointLat">纬度:</label>
-        <input type="text" id="waypointLat" placeholder="输入纬度">
+      <div class="form-row-h">
+        <label for="wpLat">纬度:</label>
+        <input type="text" id="wpLat" placeholder="输入纬度">
       </div>
-      <div class="form-row">
-        <label for="waypointLon">经度:</label>
-        <input type="text" id="waypointLon" placeholder="输入经度">
+      <div class="form-row-h">
+        <label for="wpLon">经度:</label>
+        <input type="text" id="wpLon" placeholder="输入经度">
       </div>
-      <div class="form-row">
-        <label for="waypointAlt">高度:</label>
-        <input type="text" id="waypointAlt" placeholder="输入高度">
+      <div class="form-row-h">
+        <label for="wpAlt">高度:</label>
+        <input type="text" id="wpAlt" placeholder="输入高度">
       </div>
       <div class="waypoint-controls">
-        <button id="addWaypointButton" class="main-btn">添加</button>
-        <button id="editWaypointButton" class="main-btn">编辑</button>
-        <button id="deleteWaypointButton" class="main-btn">删除</button>
+        <button id="addwpButton" class="main-btn">添加</button>
+        <button id="editwpButton" class="main-btn">编辑</button>
+        <button id="deletewpButton" class="main-btn">删除</button>
       </div>
-      <ul id="waypointList"></ul>
+      <ul id="wpList"></ul>
     </div>
     <div class="tab-content" id="loadouts">
       <h3>挂载</h3>
       <!-- Add your loadout settings form here -->
-      <div class="form-row">
+      <div class="form-row-h">
         <label for="loadoutName">挂载名称:</label>
         <input type="text" id="loadoutName" placeholder="输入挂载名称">
       </div>
-      <div class="form-row">
+      <div class="form-row-h">
         <label for="loadoutType">挂载类型:</label>
         <input type="text" id="loadoutType" placeholder="输入挂载类型">
       </div>
